@@ -14,7 +14,7 @@ app.use(express.json());
 // Database 
 const db = require('./db-connector');
 
-//bullshit
+// GET
 app.get('/athletes', async (req, res) => {
     try {
         // Create and execute our queries
