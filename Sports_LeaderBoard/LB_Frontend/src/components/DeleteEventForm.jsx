@@ -52,24 +52,27 @@ const DeleteEventForm = ({events, backendURL, refreshData}) => {
 
     return (
         <>
-          <h2>Delete Event</h2>
-          <form className="cuForm" onDelete={handleDelete}>
-            <label htmlFor="delete_event_select">Select Event to Delete:</label>
-            <select
-              id="delete_event_select"
-              value={selectedID}
-              onChange={(e) => setSelectedID(e.target.value)}
-              required
-            >
-              <option value="">-- Choose Event --</option>
-              {events.map((ev) => (
-                <option key={ev.EventID} value={ev.EventID}>
-                  {`[${ev.EventID}] ${ev.Date} - ${ev.Location}`}
-                </option>
-              ))}
-            </select>
-      
-            <button onClick={handleDelete} disabled={!selectedID}>
+          <h2 className='manageLabel'>Delete an Event</h2>
+          <form className="cuForm" onSubmit={handleDelete}>
+
+            <div className='formRow'> 
+              <label htmlFor="delete_event_select" className="delete_label">Select Event to Delete:</label>
+              <select className='select'
+                id="delete_event_select"
+                value={selectedID}
+                onChange={(e) => setSelectedID(e.target.value)}
+                required
+              >
+                <option value="" className='options'>-- Choose Event --</option>
+                {events.map((ev) => (
+                  <option key={ev.EventID} value={ev.EventID}>
+                    {`[${ev.EventID}] ${ev.Date} - ${ev.Location}`}
+                  </option>
+                ))}
+              </select>
+            </div>
+        
+            <button onClick={handleDelete} disabled={!selectedID} className='deleteButton'>
               Delete Event
             </button>
           </form>

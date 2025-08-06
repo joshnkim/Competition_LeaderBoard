@@ -4,7 +4,7 @@ const Table = ({ columns = [], data = [], children }) => {
     }
   
     return (
-      <table>
+      <table className="table">
         <thead>
           <tr>
             {columns.map((col, i) => <th key={i}>{col}</th>)}

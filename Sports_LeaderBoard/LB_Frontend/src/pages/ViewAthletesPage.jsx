@@ -31,11 +31,10 @@ useEffect(() => {
 return (
     <>
       <div>
-        <h1 className="h1">View All Athletes</h1>
-        <h3 className="h3">List of all athletes and their information</h3>
+        <h1 className='h1_title'>View All Athletes</h1>
       </div>
 
-      <table>
+      <table className="table">
         <thead>
           <tr>
             {athletes.length > 0 && Object.keys(athletes[0]).map((header, i) => (

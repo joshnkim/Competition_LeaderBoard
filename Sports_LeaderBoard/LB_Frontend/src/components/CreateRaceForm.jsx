@@ -58,11 +58,11 @@ const CreateRaceForm = ({backendURL, refreshData}) => {
 
     return(
         <>
-            <h2>Create a Race</h2>
+            <h2 className='manageLabel'>Create a Race</h2>
             <form className="cuForm" onSubmit={handleSubmit}>
-
-                <label htmlFor="eventID">Event:</label>
-                <select 
+            <div className='formRow'>
+                <label htmlFor="eventID" className='text'>Event:</label>
+                <select className="createSelect"
                 name="eventID"
                 id="eventID"
                 value={formData.eventID}
@@ -76,10 +76,11 @@ const CreateRaceForm = ({backendURL, refreshData}) => {
                     </option>
                 ))}
                 </select>
+            </div>
 
-
-                <label htmlFor="Date">Date:</label>
-                <input
+            <div className='formRow'>
+                <label htmlFor="Date" className='text'>Date:</label>
+                <input className='cuFormInput'
                     type="datetime-local"
                     name="date"
                     id="date"
@@ -87,19 +88,23 @@ const CreateRaceForm = ({backendURL, refreshData}) => {
                     onChange={handleChange}
                     required
                 />
+            </div>
 
-                <label htmlFor="Discipline">Discipline:</label>
-                <input
+            <div className='formRow'>
+                <label htmlFor="Discipline" className='text'>Discipline:</label>
+                <input className='cuFormInput'
                     type="text"
                     name="discipline"
                     id="discipline"
                     value={formData.discipline}
                     onChange={handleChange}
                     required
-                />    
+                /> 
+            </div>   
 
-                <label htmlFor="Distance">Distance:</label>
-                <input
+            <div className='formRow'>
+                <label htmlFor="Distance" className='text'>Distance:</label>
+                <input className='cuFormInput'
                     type="text"
                     name="distance"
                     id="distance"
@@ -107,8 +112,9 @@ const CreateRaceForm = ({backendURL, refreshData}) => {
                     onChange={handleChange}
                     required
                 />  
+            </div>
 
-                <input type="submit" value="Create Race" />
+                <input className="submit" type="submit" value="Create Race" />
             </form>
         </>
     );

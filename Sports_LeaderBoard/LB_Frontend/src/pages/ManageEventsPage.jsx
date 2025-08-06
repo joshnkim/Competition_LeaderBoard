@@ -24,11 +24,15 @@ function ManageEventsPage({ backendURL }) {
     return (
         <>
             <div>
-                <h1>Create or Delete an Event</h1>
-                <CreateEventForm backendURL={backendURL} refreshData={getEvents} />
-                <DeleteEventForm backendURL={backendURL} refreshData={getEvents} events={events} />
+                <h1 className='h1_title'>Manage Events</h1>
+                <div className="createForm">
+                    <CreateEventForm backendURL={backendURL} refreshData={getEvents} />
+                </div>
+         
+                <div className='deleteForm'>
+                    <DeleteEventForm backendURL={backendURL} refreshData={getEvents} events={events} />
+                </div>
             </div>
-
             <div>
                 <Footer />
             </div>

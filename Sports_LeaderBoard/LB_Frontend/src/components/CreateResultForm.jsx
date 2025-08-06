@@ -72,64 +72,73 @@ const CreateResultForm = ({backendURL, refreshData}) => {
 
     return (
         <>
-            <h2>Create a Result</h2>
-            <p>Note: to create a result, make sure the race exists, or else the race must be created first</p>
+            <h2 className='manageLabel'>Create a Result</h2>
+            <p className='note'>Note: to create a result, make sure the race exists, or else the race must be created first</p>
+
             <form className="cuForm" onSubmit={handleSubmit}>
-                <label htmlFor="athleteID">Athlete:</label>
-                <select 
-                    name="athleteID"
-                    id="athleteID"
-                    value={formData.athleteID}
-                    onChange={handleChange}
-                    required
-                >
-                    <option value="">--Select an Athlete--</option>
-                    {athletes.map(a => (
-                        <option key={a.AthleteID} value={a.AthleteID}>
-                            {a.FName} {a.LName}
-                        </option>
-                    ))}
-                </select>
+                <div className='formRow'>
+                    <label htmlFor="athleteID">Athlete:</label>
+                    <select className='createSelect'
+                        name="athleteID"
+                        id="athleteID"
+                        value={formData.athleteID}
+                        onChange={handleChange}
+                        required
+                    >
+                        <option value="">--Select an Athlete--</option>
+                        {athletes.map(a => (
+                            <option key={a.AthleteID} value={a.AthleteID}>
+                                {a.FName} {a.LName}
+                            </option>
+                        ))}
+                    </select>
+                </div>
 
-                <label htmlFor="raceID">Race:</label>
-                <select 
-                    name="raceID"
-                    id="raceID"
-                    value={formData.raceID}
-                    onChange={handleChange}
-                    required
-                >
-                    <option value="">--Select a Race--</option>
-                    {races.map(r => (
-                        <option key={r.RaceID} value={r.RaceID}>
-                            {r.Discipline} {r.Distance} km
-                        </option>
-                    ))}
-                </select>
+                <div className='formRow'>
+                    <label htmlFor="raceID">Race:</label>
+                    <select className='createSelect' 
+                        name="raceID"
+                        id="raceID"
+                        value={formData.raceID}
+                        onChange={handleChange}
+                        required
+                    >
+                        <option value="">--Select a Race--</option>
+                        {races.map(r => (
+                            <option key={r.RaceID} value={r.RaceID}>
+                                {r.Discipline} {r.Distance} km
+                            </option>
+                        ))}
+                    </select>
+                </div>
 
-                <label htmlFor="time">Time (HH:MM:SS):</label>
-                <input 
-                    type="text"
-                    name="time"
-                    id="time"
-                    placeholder="00:30:00"
-                    value={formData.time}
-                    onChange={handleChange}
-                    required
-                />
+                <div className='formRow'>
+                    <label htmlFor="time">Time (HH:MM:SS):</label>
+                    <input className='cuFormInput'
+                        type="text"
+                        name="time"
+                        id="time"
+                        placeholder="00:30:00"
+                        value={formData.time}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
 
-                <label htmlFor="raceRank">Rank:</label>
-                <input 
-                    type="text"
-                    name="raceRank"
-                    id="raceRank"
-                    min="1"
-                    value={formData.time}
-                    onChange={handleChange}
-                    required
-                />
+                <div className='formRow'>
+                    <label htmlFor="raceRank">Rank:</label>
+                    <input className='cuFormInput'
+                        type="text"
+                        name="raceRank"
+                        id="raceRank"
+                        min="1"
+                        value={formData.time}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
 
-                <input type="submit" value="Create Result" />
+                <input className="submit" type="submit" value="Create Result" />
             </form>
         </>
     )

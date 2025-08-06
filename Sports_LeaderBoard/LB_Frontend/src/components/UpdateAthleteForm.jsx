@@ -60,22 +60,25 @@ const UpdateAthleteForm = ({ athletes, backendURL, refreshData }) => {
 
     return (
         <>
-            <h2>Update an Athlete</h2>
+            <h2 className='manageLabel'>Update an Athlete</h2>
             <form className="cuForm" onSubmit={handleSubmit}>
-                <label htmlFor="update_athlete_select">Select Athlete:</label>
-                <select id="update_athlete_select" value={selectedID} onChange={handleSelect}>
-                    <option value="">-- Choose Athlete --</option>
-                    {athletes.map((a) => (
-                        <option key={a.AthleteID} value={a.AthleteID}>
-                            {a.FName} {a.LName}
-                        </option>
-                    ))}
-                </select>
+                <div className='formRow'>
+                    <label htmlFor="update_athlete_select">Select Athlete:</label>
+                    <select className='athleteSelect' id="update_athlete_select" value={selectedID} onChange={handleSelect}>
+                        <option value="">-- Choose Athlete --</option>
+                        {athletes.map((a) => (
+                            <option key={a.AthleteID} value={a.AthleteID}>
+                                {a.FName} {a.LName}
+                            </option>
+                        ))}
+                    </select>
+                </div>
 
                 {selectedID && (
                     <>
+                    <div className='formRow'>
                         <label htmlFor="update_fname">First Name:</label>
-                        <input
+                        <input className='cuFormUpdate'
                             type="text"
                             id="update_fname"
                             name="fname"
@@ -83,9 +86,11 @@ const UpdateAthleteForm = ({ athletes, backendURL, refreshData }) => {
                             onChange={handleChange}
                             required
                         />
+                    </div>
 
+                    <div className='formRow'>
                         <label htmlFor="update_lname">Last Name:</label>
-                        <input
+                        <input className='cuFormUpdate'
                             type="text"
                             id="update_lname"
                             name="lname"
@@ -93,9 +98,11 @@ const UpdateAthleteForm = ({ athletes, backendURL, refreshData }) => {
                             onChange={handleChange}
                             required
                         />
+                    </div>
 
+                    <div className='formRow'>
                         <label htmlFor="update_age">Age:</label>
-                        <input
+                        <input className='cuFormUpdate'
                             type="number"
                             id="update_age"
                             name="age"
@@ -103,10 +110,11 @@ const UpdateAthleteForm = ({ athletes, backendURL, refreshData }) => {
                             onChange={handleChange}
                             required
                         />
+                    </div>
 
-
+                    <div className='formRow'>
                         <label htmlFor="update_gender">Gender:</label>
-                        <input
+                        <input className='cuFormUpdate'
                             type="text"
                             id="update_gender"
                             name="gender"
@@ -114,17 +122,20 @@ const UpdateAthleteForm = ({ athletes, backendURL, refreshData }) => {
                             onChange={handleChange}
                             required
                         />
-
+                    </div>
+                    
+                    <div className='formRow'>
                         <label htmlFor="update_country">Country:</label>
-                        <input
+                        <input className='cuFormUpdate'
                             type="text"
                             id="update_country"
                             name="country"
                             value={formData.country}
                             onChange={handleChange}
                         />
+                    </div>
 
-                        <input type="submit" value="Update Athlete" />
+                        <input className="updateSubmit" type="submit" value="Update Athlete" />
 
                     </>
                 )}

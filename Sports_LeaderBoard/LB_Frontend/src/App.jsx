@@ -26,8 +26,9 @@ function App() {
 
     <Router>
       <div className="app">
-          <div className="content">
+          
             <Header />
+            <div className="content">
             <Routes>
               <Route path="/" element={<HomePage backendURL={backendURL} />} />
               <Route path="/manage_events" element={<ManageEventsPage backendURL={backendURL} />} />

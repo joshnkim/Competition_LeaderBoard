@@ -41,58 +41,68 @@ const CreateAthleteForm = ({ backendURL, refreshData }) => {
 
     return (
         <>
-            <h2>Create an Athlete</h2>
+            <h2 className='manageLabel'>Create an Athlete</h2>
             <form className="cuForm" onSubmit={handleSubmit}>
-                <label htmlFor="First_name">First Name:</label>
-                <input
-                    type="text"
-                    name="fname"
-                    id="name"
-                    value={formData.fname}
-                    onChange={handleChange}
-                    required
-                />
+                <div className='formRow'>
+                    <label htmlFor="First_name">First Name:</label>
+                    <input className='cuFormInput'
+                        type="text"
+                        name="fname"
+                        id="name"
+                        value={formData.fname}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
 
-                <label htmlFor="Last_name">Last Name:</label>
-                <input
-                    type="text"
-                    name="lname"
-                    id="name"
-                    value={formData.lname}
-                    onChange={handleChange}
-                    required
-                />
+                <div className='formRow'>
+                    <label htmlFor="Last_name">Last Name:</label>
+                    <input className='cuFormInput'
+                        type="text"
+                        name="lname"
+                        id="name"
+                        value={formData.lname}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
 
-                <label htmlFor="age">Age:</label>
-                <input
-                    type="number"
-                    name="age"
-                    id="age"
-                    value={formData.age}
-                    onChange={handleChange}
-                    required
-                />
+                <div className='formRow'>  
+                    <label htmlFor="age">Age:</label>
+                    <input className='cuFormInput'
+                        type="number"
+                        name="age"
+                        id="age"
+                        value={formData.age}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
 
-                <label htmlFor="gender">Gender:</label>
-                <input
-                    type="text"
-                    name="gender"
-                    id="gender"
-                    value={formData.gender}
-                    onChange={handleChange}
-                    required
-                />
+                <div className='formRow'> 
+                    <label htmlFor="gender">Gender:</label>
+                    <input className='cuFormInput'
+                        type="text"
+                        name="gender"
+                        id="gender"
+                        value={formData.gender}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
 
-                <label htmlFor="country">Country:</label>
-                <input
-                    type="text"
-                    name="country"
-                    id="country"
-                    value={formData.country}
-                    onChange={handleChange}
-                />
+                <div className='formRow'> 
+                    <label htmlFor="country">Country:</label>
+                    <input className='cuFormInput'
+                        type="text"
+                        name="country"
+                        id="country"
+                        value={formData.country}
+                        onChange={handleChange}
+                    />
+                </div>
 
-                <input type="submit" value="Create Athlete" />
+                <input className="submit" type="submit" value="Create Athlete" />
             </form>
         </>
     );

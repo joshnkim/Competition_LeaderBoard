@@ -53,13 +53,13 @@ function ViewEventsPage({ backendURL }) {
   return (
     <>
       <div>
-        <h1>All Events</h1>
-        <Table
+        <h1 className='h1_title'>All Events</h1>
+        <Table className="table"
           columns={eventColumns}
           data={events}
           // Render a button on each row to select event and show races
           children={(row) => (
-            <button onClick={() => setSelectedEventId(row.EventID)}>
+            <button className="eventButton" onClick={() => setSelectedEventId(row.EventID)}>
               View Races
             </button>
           )}

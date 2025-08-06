@@ -24,22 +24,23 @@ function ManageResultsPage({ backendURL }) {
 
     return (
         <>
-            <div>
-                <h1>Create or Delete a Result</h1>
-                <CreateResultForm backendURL={backendURL} refreshData={getResults} />
-            </div>
+            <div className='page-content'>
+                <h1 className='h1_title'>Create or Delete a Result</h1>
+                    <div className='createForm'>
+                    <CreateResultForm backendURL={backendURL} refreshData={getResults} />
+                    </div>
 
-            <p>or</p>
 
-            
+                    <div className='updateForm'>
+                        <UpdateResultForm results = {results} backendURL={backendURL} refreshData={getResults} />
+                    </div>
+                    <div className='deleteForm'>
+                        <DeleteResultForm results = {results} backendURL={backendURL} refreshData={getResults} />
+                    </div>
 
-            <div>
-                <UpdateResultForm results = {results} backendURL={backendURL} refreshData={getResults} />
-                <DeleteResultForm results = {results} backendURL={backendURL} refreshData={getResults} />
-            </div>
-
-            <div>
-                <Footer />
+                <div>
+                    <Footer />
+                </div>
             </div>
         </>
     )

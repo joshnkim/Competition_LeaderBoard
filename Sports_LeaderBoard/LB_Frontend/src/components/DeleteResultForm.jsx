@@ -31,25 +31,27 @@ const DeleteResultForm = ({ results = [], backendURL, refreshData }) => {
 
     return (
         <>
-            <h2>Delete a Result</h2>
+            <h2 className='manageLabel'>Delete a Result</h2>
             <form className="cuForm" onSubmit={(e) => e.preventDefault()}>
-                <label htmlFor="delete_result_select">Select Result:</label>
-                <select 
-                    id="delete_result_select" 
-                    value={selectedID} 
-                    onChange={(e) => setSelectedID(e.target.value)}
-                    required
-                >
-                    <option value="">-- Choose Result --</option>
-                    {results.map((r) => (
-                        <option key={r.ResultID} value={r.ResultID}>
-                            {`[${r.name}] - ${r.Race} - ${r.Time} - ${r.rank}`}
-                        </option>
-                    ))}
-                </select>
+                <div className='formRow'>
+                    <label htmlFor="delete_result_select">Select Result:</label>
+                    <select className='select'
+                        id="delete_result_select" 
+                        value={selectedID} 
+                        onChange={(e) => setSelectedID(e.target.value)}
+                        required
+                    >
+                        <option value="">-- Choose Result --</option>
+                        {results.map((r) => (
+                            <option key={r.ResultID} value={r.ResultID}>
+                                {`[${r.name}] - ${r.Race} - ${r.Time} - ${r.rank}`}
+                            </option>
+                        ))}
+                    </select>
+                </div>
 
                 <br />
-                <button type="button" onClick={handleDelete} disabled={!selectedID}>Delete Result</button>
+                <button className='deleteButton' type="button" onClick={handleDelete} disabled={!selectedID}>Delete Result</button>
       
             </form>
         </>

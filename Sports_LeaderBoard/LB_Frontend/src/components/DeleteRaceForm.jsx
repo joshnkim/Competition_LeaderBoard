@@ -31,25 +31,27 @@ const DeleteRaceForm = ({ races = [], backendURL, refreshData }) => {
 
     return (
         <>
-            <h2>Delete a Race</h2>
+            <h2 className='manageLabel'>Delete a Race</h2>
             <form className="cuForm" onSubmit={(e) => e.preventDefault()}>
-                <label htmlFor="delete_race_select">Select Race:</label>
-                <select 
-                    id="delete_race_select" 
-                    value={selectedID} 
-                    onChange={(e) => setSelectedID(e.target.value)}
-                    required
-                >
-                    <option value="">-- Choose Race --</option>
-                    {races.map((ra) => (
-                        <option key={ra.RaceID} value={ra.RaceID}>
-                            {`[${ra.Type}] - ${ra.Discipline} - ${ra.Distance}km`}
-                        </option>
-                    ))}
-                </select>
+                <div className='formRow'>
+                    <label htmlFor="delete_race_select">Select Race:</label>
+                    <select className='select'
+                        id="delete_race_select" 
+                        value={selectedID} 
+                        onChange={(e) => setSelectedID(e.target.value)}
+                        required
+                    >
+                        <option value="">-- Choose Race --</option>
+                        {races.map((ra) => (
+                            <option key={ra.RaceID} value={ra.RaceID}>
+                                {`[${ra.Type}] - ${ra.Discipline} - ${ra.Distance}km`}
+                            </option>
+                        ))}
+                    </select>
+                </div>
 
                 <br />
-                <button type="button" onClick={handleDelete} disabled={!selectedID}>Delete Race</button>
+                <button type="button" onClick={handleDelete} disabled={!selectedID} className='deleteButton'>Delete Race</button>
       
             </form>
         </>

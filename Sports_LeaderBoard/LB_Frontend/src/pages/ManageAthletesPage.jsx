@@ -46,12 +46,17 @@ useEffect(() => {
 return(
     <>
         <div>
-            <h1>Create, Update, or Delete Athletes</h1>
+            <h1 className='h1_title'>Create, Update, or Delete Athletes</h1>
 
-            <CreateAthleteForm backendURL={backendURL} refreshData={getAthletes} />
-            <UpdateAthleteForm athletes={athletes} backendURL={backendURL} refreshData={getAthletes} />
-            <p>or</p>
-            <DeleteAthleteForm athletes={athletes} backendURL={backendURL} refreshData={getAthletes} />
+            <div className='createForm'>
+                <CreateAthleteForm backendURL={backendURL} refreshData={getAthletes} />
+            </div>
+            <div className='updateForm'>
+                <UpdateAthleteForm athletes={athletes} backendURL={backendURL} refreshData={getAthletes} />
+            </div>
+            <div className='deleteForm'>
+                <DeleteAthleteForm athletes={athletes} backendURL={backendURL} refreshData={getAthletes} />
+            </div>
 
         </div>
 

@@ -23,10 +23,10 @@ function ViewResultsPage({backendURL}) {
 
     const resultColumns = [
         "AthleteID",
-        "Athlete Name", // athlete name has been concatenated with the GET SQL query
+        "name", // athlete name has been concatenated with the GET SQL query
         "Race",
         "Time", 
-        "Rank",
+        "rank",
         "ResultID"
     ];
 
@@ -34,12 +34,12 @@ function ViewResultsPage({backendURL}) {
     return (
         <>
             <div>
-                <h1>All Results:</h1>
-                <Table columns={resultColumns} data={results} />
+                <h1 className='h1_title'>All Results:</h1>
+                <Table className="table" columns={resultColumns} data={results} />
             </div>
             <br></br>
             <div>
-                <p>note: functionality for organizing results via event or race will be available soon</p>
+                <p className="note">note: functionality for organizing results via event or race will be available soon</p>
             </div>
             <Footer />
         </>

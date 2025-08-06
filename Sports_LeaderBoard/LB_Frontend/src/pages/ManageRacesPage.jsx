@@ -24,10 +24,13 @@ function ManageRacesPage({backendURL}) {
     return (
         <>
             <div>
-                <h1>Create or Delete a Race</h1>
-                <CreateRaceForm backendURL={backendURL} refreshData={getRaces} />
-                <p>or</p>
-                <DeleteRaceForm races = {races} backendURL={backendURL} refreshData={getRaces} />
+                <h1 className='h1_title'>Create or Delete a Race</h1>
+                    <div className="createForm">
+                        <CreateRaceForm backendURL={backendURL} refreshData={getRaces} />
+                    </div>
+                    <div className='deleteForm'>
+                        <DeleteRaceForm races = {races} backendURL={backendURL} refreshData={getRaces} />
+                    </div>
             </div>
 
             <div>

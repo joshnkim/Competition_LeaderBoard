@@ -43,10 +43,12 @@ const CreateEventForm = ({ backendURL, refreshData }) => {
 
     return (
         <>
-          <h2>Create an Event</h2>
+          <h2 className='manageLabel' >Create an Event</h2>
           <form className="cuForm" onSubmit={handleSubmit}>
-            <label htmlFor="date">Date:</label>
-            <input
+
+          <div className='formRow'> 
+            <label htmlFor="date" className='text'>Date: </label>
+            <input className='cuFormInput'
               type="datetime-local"
               name="date"
               id="date"
@@ -54,10 +56,11 @@ const CreateEventForm = ({ backendURL, refreshData }) => {
               onChange={handleChange}
               required
             />
+          </div>
   
-    
-            <label htmlFor="location">Location:</label>
-            <input
+          <div className='formRow'>
+            <label htmlFor="location" className='text'>Location: </label>
+            <input className='cuFormInput'
               type="text"
               name="location"
               id="location"
@@ -65,9 +68,11 @@ const CreateEventForm = ({ backendURL, refreshData }) => {
               onChange={handleChange}
               required
             />
+          </div>
     
-            <label htmlFor="type">Type:</label>
-            <input
+          <div className='formRow'>
+            <label htmlFor="type" className='text'>Type: </label>
+            <input className='cuFormInput'
               type="text"
               name="type"
               id="type"
@@ -75,8 +80,9 @@ const CreateEventForm = ({ backendURL, refreshData }) => {
               onChange={handleChange}
               required
             />
+          </div>
     
-            <input type="submit" value="Create Event" />
+            <input type="submit" className="submit" value="Create Event" />
           </form>
         </>
       );

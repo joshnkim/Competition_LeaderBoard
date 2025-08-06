@@ -4,7 +4,7 @@ const Footer = () => {
     return (
         <footer className="footer">
             <Link to="/">
-                <button>Back to Home Page</button>
+                <button className='footer_button'>Back to Home Page</button>
             </Link>
         </footer>
     );

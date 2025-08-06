@@ -27,10 +27,9 @@ const ViewRacesPage = ({ backendURL }) => {
     return (
         <>
         <div>
-            <h1>Races</h1>
+            <h1 className='h1_title'>All Races</h1>
 
-            <h2>All Races</h2>
-            <Table
+            <Table className="Table"
                 columns={columns}
                 data={races}
             />

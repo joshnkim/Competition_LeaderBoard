@@ -30,20 +30,22 @@ const DeleteAthleteForm = ({ athletes, backendURL, refreshData }) => {
 
     return (
         <>
-            <h2>Delete an Athlete</h2>
+            <h2 className='manageLabel'>Delete an Athlete</h2>
             <form className="cuForm" onSubmit={(e) => e.preventDefault()}>
-                <label htmlFor="delete_athlete_select">Select Athlete:</label>
-                <select id="delete_athlete_select" value={selectedID} onChange={handleSelect}>
-                    <option value="">-- Choose Athlete --</option>
-                    {athletes.map((a) => (
-                        <option key={a.AthleteID} value={a.AthleteID}>
-                            {a.FName} {a.LName}
-                        </option>
-                    ))}
-                </select>
+                <div className='formRow'>
+                    <label htmlFor="delete_athlete_select">Select Athlete:</label>
+                    <select className="select" id="delete_athlete_select" value={selectedID} onChange={handleSelect}>
+                        <option value="">-- Choose Athlete --</option>
+                        {athletes.map((a) => (
+                            <option key={a.AthleteID} value={a.AthleteID}>
+                                {a.FName} {a.LName}
+                            </option>
+                        ))}
+                    </select>
+                </div>
 
                 <br />
-                <button type="button" onClick={handleDelete} disabled={!selectedID}>Delete Athlete</button>
+                <button type="button" onClick={handleDelete} disabled={!selectedID} className='deleteButton'>Delete Athlete</button>
       
             </form>
         </>
