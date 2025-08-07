@@ -21,7 +21,7 @@ app.get('/athletes', async (req, res) => {
     try {
         // Create and execute our queries
         // In query1, we use a JOIN clause to display the names of the homeworlds
-        const query1 = `SELECT AthleteID, FName, LName, Age, Gender, Country FROM Athletes`;
+        const query1 = `SELECT AthleteID, FName AS 'First Name', LName as 'Last Name', Age, Gender, Country FROM Athletes`;
         const [athletes] = await db.query(query1);    
         res.status(200).json({ athletes });  // Send the results to the frontend
 
@@ -134,8 +134,8 @@ app.get('/events/:eventId/races', async (req, res) => {
       const query = `
         SELECT 
 	        Athletes.AthleteID, 
-          CONCAT(Athletes.Fname, ' ', Athletes.Lname) AS 'name', 
-          CONCAT(Races.Discipline, ' ', Races.Distance, 'km') AS Race,
+          CONCAT(Athletes.Fname, ' ', Athletes.Lname) AS 'Name', 
+          CONCAT(Races.Discipline, ' ', Races.Distance, 'km') AS 'Race',
           Time,
           CONCAT(RaceRank,
 		        CASE
@@ -145,7 +145,7 @@ app.get('/events/:eventId/races', async (req, res) => {
               WHEN RaceRank %10 = 3 THEN 'rd'												-- this line and the above 2 work for numbers starting from 1-9 and 14 and on. need to add a condition for 11,12, 13
               ELSE 'th'
 		        END, 
-            ' place') AS 'rank',
+            ' place') AS 'Rank',
           ResultID
         FROM Results
         LEFT JOIN Athletes on Results.AthleteID = Athletes.AthleteID
@@ -166,8 +166,8 @@ app.get('/events/:eventId/races', async (req, res) => {
       const query = `
           SELECT 
             Athletes.AthleteID,
-            CONCAT(Athletes.FName, ' ', Athletes.LName) AS name,
-            CONCAT(Races.Discipline, ' ', Races.Distance, 'km') AS Race,
+            CONCAT(Athletes.FName, ' ', Athletes.LName) AS 'Name',
+            CONCAT(Races.Discipline, ' ', Races.Distance, 'km') AS 'Race',
             Results.Time,
             CONCAT(
               Results.RaceRank,
@@ -179,7 +179,7 @@ app.get('/events/:eventId/races', async (req, res) => {
                 ELSE 'th'
               END,
               ' place'
-            ) AS rank,
+            ) AS 'Rank',
             Results.ResultID
             FROM Results
             LEFT JOIN Athletes ON Results.AthleteID = Athletes.AthleteID

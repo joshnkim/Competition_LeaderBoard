@@ -40,7 +40,6 @@ return (
             {athletes.length > 0 && Object.keys(athletes[0]).map((header, i) => (
               <th key={i}>{header}</th>
             ))}
-            <th>Actions</th>
           </tr>
         </thead>
         <tbody>

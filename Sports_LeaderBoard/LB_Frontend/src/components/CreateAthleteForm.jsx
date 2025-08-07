@@ -1,6 +1,10 @@
 import { useState } from 'react';
+import {useNavigate} from 'react-router-dom'
 
 const CreateAthleteForm = ({ backendURL, refreshData }) => {
+
+    const navigate = useNavigate();
+
     const [formData, setFormData] = useState({
         fname: '',
         lname: '',
@@ -30,7 +34,11 @@ const CreateAthleteForm = ({ backendURL, refreshData }) => {
 
             if (response.ok) {
                 setFormData({ fname: '', lname: '', age: '', gender: '', country: '' });
+                window.alert(`Athlete ${formData.fname} ${formData.lname} was created successfully.`)
                 refreshData();
+                navigate('/')
+
+                
             } else {
                 console.error('Failed to create athlete');
             }

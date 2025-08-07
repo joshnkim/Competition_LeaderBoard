@@ -23,10 +23,10 @@ function ViewResultsPage({backendURL}) {
 
     const resultColumns = [
         "AthleteID",
-        "name", // athlete name has been concatenated with the GET SQL query
+        "Name", // athlete name has been concatenated with the GET SQL query
         "Race",
         "Time", 
-        "rank",
+        "Rank",
         "ResultID"
     ];
 

@@ -8,7 +8,6 @@ const Table = ({ columns = [], data = [], children }) => {
         <thead>
           <tr>
             {columns.map((col, i) => <th key={i}>{col}</th>)}
-            {children ? <th>Actions</th> : null}
           </tr>
         </thead>
         <tbody>
