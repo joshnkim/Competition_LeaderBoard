@@ -5,7 +5,9 @@
 // Express
 const express = require('express');  // We are using the express library for the web server
 const app = express();               // We need to instantiate an express object to interact with the server in our code
-const PORT = 2229;     // Set a port number
+const PORT = 2227;     // Set a port number
+const path = require('path');
+const fs = require('fs');
 
 const cors = require('cors');
 app.use(cors({ credentials: true, origin: "*"}));
@@ -197,6 +199,93 @@ app.get('/events/:eventId/races', async (req, res) => {
           res.status(500).send("An error occurred while fetching athlete result.");
         }
       });
+
+
+
+
+
+
+
+//POST: athlete 
+
+app.post('/athletes', async (req, res) => {
+  const {fname, lname, age, gender, country} = req.body;
+
+  try {
+    const [athlete] = await db.execute(
+      `INSERT INTO Athletes (
+        fname, lname, age, gender, country
+      ) VALUES (?, ?, ?, ?, ?)`,
+      [fname, lname, age, gender, country]
+    );
+
+    res.status(201).json({message: 'Athlete created successfully!', AthleteID: athlete.insertId});
+
+  } catch (error){
+    console.error("Error creating athlete", error);
+    res.status(500).send("An error occured while creating the athlete.");
+  }
+});
+
+
+//POST: event
+
+//POST: race 
+
+//POST: result 
+
+
+
+
+
+
+
+
+
+
+
+
+//UPDATE Athlete: using PL?
+//UPDATE Result: using PL
+
+//DELETE Event: using PL 
+// DELETE race: using PL
+// DELETE athlete using pl
+// DELETE result using pl 
+
+
+/******************************************************* RESET ROUTE ************************************************************/
+
+
+app.post('/reset', async (req, res) => {
+  try {
+    const DDLpath = path.join(__dirname, 'SP_DDL.sql');
+    const DeleteSPPath = path.join(__dirname, 'CUD_Delete.sql');
+
+    const readDDL = fs.readFileSync(DDLpath, 'utf8');
+    const readDeleteSP = fs.readFileSync(DeleteSPPath, 'utf8');
+
+    await db.query(readDDL);
+    console.log("DDL script executed successfully.");
+
+    // Add delay of 1 second
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
+    await db.query(readDeleteSP);
+    console.log("Delete stored procedure executed successfully.");
+
+    res.status(200).json({
+      message: "The database has been reset, and the DELETE SP has been completed",
+      deleted: true
+    });
+  } catch (err) {
+    console.error('Error resetting the database:', err);
+    res.status(500).send('Error resetting the database.');
+  }
+});
+
+
+
 
 
 

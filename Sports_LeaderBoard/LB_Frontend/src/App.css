@@ -88,8 +88,10 @@ body {
 }
 
 .Button-Container {
-  margin-top: 100px;
+  margin-top: 40px;
+  margin-bottom: 30px;
 }
+
 .HomeButtons button {
 
   width: 200px;         
@@ -237,6 +239,9 @@ body {
   font-family: "Commissioner", sans-serif; 
 }
 
+.submit:hover {
+  background-color: rgba(54, 242, 170, 0.796);
+}
 .deleteForm {
   padding-top: 5px;
   padding-bottom: 80px;
@@ -352,4 +357,83 @@ body {
 
 .note {
   color: rgb(138, 138, 138);
+}
+
+
+.h1_reset{
+  color: black;
+  margin-top: -50px;
+  margin-bottom: 70px;
+  /* box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  border-radius: 12px;
+  background-color: rgba(240, 255, 255, 0.45); */
+  font-family: "Pacifico", cursive;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.h3_reset{
+  color: black;
+  margin-top: -80px;
+  margin-bottom: 70px;
+  /* box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  border-radius: 12px;
+  background-color: rgba(240, 255, 255, 0.45); */
+  font-family: "Pacifico", cursive;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+
+#yes_reset {
+  border-radius: 50px;
+  width: 90px;
+  height: 90px;
+  background-color: rgba(0, 255, 89, 0.514);
+  color: black;
+
+}
+
+#no_reset {
+  border-radius: 50px;
+  width: 90px;
+  height: 90px;
+  background-color: rgba(255, 0, 0, 0.386);
+}
+
+.resetContainer {
+  display: flex;
+  justify-content: center; /* Optional: centers the buttons horizontally */
+  gap: 30px;
+  margin-top: 20px; /* Optional spacing from above */
+}
+
+.resetButton {
+  margin-top: 70px;
+  margin-bottom: 170px;
+  
+}
+
+#ResetDB {
+  width: 200px;         
+  padding: 10px 20px;   
+  font-family: "Pacifico", cursive;
+  font-weight: 10px; 
+  font-size: 16px;
+  text-align: center;
+  text-align: center;
+  border: none;
+  border-radius: 6px;    
+  background-color: rgb(78, 95, 148);
+  color: white;
+  cursor: pointer;
+  
+}
+
+#ResetDB:hover {
+  background-color: rgb(41, 53, 92);
+}
+
+.HomeButtons button:hover {
+  background-color: rgb(117, 149, 255);
 }

@@ -10,12 +10,13 @@ import ViewEventsPage from './pages/ViewEventsPage'
 import ViewRacesPage from './pages/ViewRacesPage'
 import ViewResultsPage from './pages/ViewResultsPage'
 import ManageResultsPage from './pages/ManageResultsPage'
+import ResetDBPage from './pages/ResetDBPage'
 import Header from './components/Header'
 
 
 
 
-const backendPort = 2229;
+const backendPort = 2227;
 const backendURL = `http://classwork.engr.oregonstate.edu:${backendPort}`;
 
 
@@ -39,7 +40,8 @@ function App() {
               <Route path="/view_races" element={<ViewRacesPage backendURL={backendURL} />} />
               <Route path="/view_athletes" element={<ViewAthletesPage backendURL={backendURL} />} />
               <Route path="/view_results" element={<ViewResultsPage backendURL={backendURL} />} />
-            </Routes>
+              <Route path="/reset_database" element={<ResetDBPage backendURL={backendURL} />} />
+            </Routes> 
           </div>
       </div>
     </Router>
