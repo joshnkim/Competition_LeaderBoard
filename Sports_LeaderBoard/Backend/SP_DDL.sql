@@ -78,4 +78,37 @@ BEGIN
 
 END;
 
-CALL sp_resetDB();
+
+
+
+
+
+
+
+-- CRUD FUNCTIONALITIES ------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------
+
+
+-- CREATE AN ATHLETE 
+DROP PROCEDURE IF EXISTS sp_createAthlete;
+
+CREATE PROCEDURE sp_createAthlete(
+    IN fnameInput VARCHAR(55),
+    IN lnameInput VARCHAR(55),
+    IN ageInput INT,
+    IN genderInput VARCHAR(10),
+    IN countryInput VARCHAR(55)
+)
+
+BEGIN 
+
+    INSERT INTO Athletes ( FName, LName, Age, Gender, Country)								-- AthleteID is an auto-incremented value, so not included
+    VALUES
+    (fnameInput, lnameInput, ageInput, genderInput, countryInput);
+
+END;
+
+
+
+

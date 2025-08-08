@@ -206,27 +206,6 @@ app.get('/events/:eventId/races', async (req, res) => {
 
 
 
-//POST: athlete 
-
-app.post('/athletes', async (req, res) => {
-  const {fname, lname, age, gender, country} = req.body;
-
-  try {
-    const [athlete] = await db.execute(
-      `INSERT INTO Athletes (
-        fname, lname, age, gender, country
-      ) VALUES (?, ?, ?, ?, ?)`,
-      [fname, lname, age, gender, country]
-    );
-
-    res.status(201).json({message: 'Athlete created successfully!', AthleteID: athlete.insertId});
-
-  } catch (error){
-    console.error("Error creating athlete", error);
-    res.status(500).send("An error occured while creating the athlete.");
-  }
-});
-
 
 //POST: event
 
@@ -256,35 +235,63 @@ app.post('/athletes', async (req, res) => {
 
 /******************************************************* RESET ROUTE ************************************************************/
 
-
-app.post('/reset', async (req, res) => {
+//load file
+app.post('/loadSP', async (req, res) => {
   try {
     const DDLpath = path.join(__dirname, 'SP_DDL.sql');
-    const DeleteSPPath = path.join(__dirname, 'CUD_Delete.sql');
-
     const readDDL = fs.readFileSync(DDLpath, 'utf8');
-    const readDeleteSP = fs.readFileSync(DeleteSPPath, 'utf8');
 
     await db.query(readDDL);
-    console.log("DDL script executed successfully.");
-
-    // Add delay of 1 second
-    await new Promise(resolve => setTimeout(resolve, 1000));
-
-    await db.query(readDeleteSP);
-    console.log("Delete stored procedure executed successfully.");
+    console.log("DDL script loaded successfully.");
 
     res.status(200).json({
-      message: "The database has been reset, and the DELETE SP has been completed",
-      deleted: true
+      message: "SPs defined."
     });
   } catch (err) {
-    console.error('Error resetting the database:', err);
-    res.status(500).send('Error resetting the database.');
+    console.error('Error loading procedures:', err);
+    res.status(500).send('Error loading stored procedures.');
+  }
+});
+
+//reset functionality
+app.post('/reset', async (req, res) => {
+  try {
+    await db.query('CALL sp_resetDB()');
+    res.status(200).json({message: "The database has been reset successfully"});
+  } catch (err) {
+    res.status(500).send("Failed to reset database.");
   }
 });
 
 
+
+//POST: athlete 
+
+app.post('/athletes', async (req, res) => {
+  const { fname, lname, age, gender, country } = req.body;
+
+  try {
+    // Call the stored procedure with parameters
+    await db.query('CALL sp_createAthlete(?, ?, ?, ?, ?)', [
+      fname,
+      lname,
+      age,
+      gender,
+      country
+    ]);
+
+    res.status(201).json({ message: 'Athlete created successfully!' });
+
+  } catch (error) {
+    console.error("Error calling sp_createAthlete:", error); // Helpful for debugging
+    res.status(500).send("An error occurred while creating the athlete.");
+  }
+});
+
+
+
+
+// For the rest of the CUD routes, make sure you ad them into the SP_DDL file, and then import the updated file into phpmyadmin
 
 
 

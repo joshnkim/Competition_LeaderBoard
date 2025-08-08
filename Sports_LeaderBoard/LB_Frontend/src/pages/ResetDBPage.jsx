@@ -19,9 +19,6 @@ function ResetDBPage({backendURL}) {
                 const result = await response.json();
                 window.alert('The database has been reset.')
 
-                if (result.deleted) {
-                    window.alert('Athlete deletion has also completed');
-                }
                 navigate('/')
 
 
