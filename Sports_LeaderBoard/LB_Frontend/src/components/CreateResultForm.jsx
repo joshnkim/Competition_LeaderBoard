@@ -1,6 +1,10 @@
 import {useState, useEffect} from 'react';
+import {useNavigate} from 'react-router-dom'
 
 const CreateResultForm = ({backendURL, refreshData}) => {
+
+    const navigate = useNavigate();
+
     const [formData, setFormData] = useState({
         athleteID: '',
         raceID: '',
@@ -16,7 +20,7 @@ const CreateResultForm = ({backendURL, refreshData}) => {
             try {
                 const res = await fetch(`${backendURL}/athletes`);
                 const data = await res.json();
-                setAthletes(data.athletes || []);
+                setAthletes(data.athletes || data); //changed from [] to data
 
             } catch (err) {
                 console.error('Failed to fetch athletes:', err);
@@ -27,7 +31,7 @@ const CreateResultForm = ({backendURL, refreshData}) => {
             try {
                 const res = await fetch(`${backendURL}/races`);
                 const data = await res.json();
-                setRaces(data.races || []);
+                setRaces(data.races || data);
 
             } catch (err) {
                 console.error('Failed to fetch races:', err);
@@ -48,6 +52,8 @@ const CreateResultForm = ({backendURL, refreshData}) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        const athlete = athletes.find(athlete => athlete.AthleteID === parseInt(formData.athleteID)) // use this to get the name of athlete
+
         try {
             const response = await fetch(`${backendURL}/results`, {
                 method: 'POST',
@@ -59,7 +65,9 @@ const CreateResultForm = ({backendURL, refreshData}) => {
 
             if (response.ok) {
                 setFormData({ athleteID: '', raceID: '', time: '', raceRank: ''});
+                window.alert(`Result for athlete ${athlete["First Name"]} ${athlete["Last Name"]} was created successfully`)
                 refreshData();
+                navigate('/')
 
             } else {
                 console.error('Failed to create result');
@@ -86,9 +94,9 @@ const CreateResultForm = ({backendURL, refreshData}) => {
                         required
                     >
                         <option value="">--Select an Athlete--</option>
-                        {athletes.map(a => (
+                        {athletes.map((a) => (
                             <option key={a.AthleteID} value={a.AthleteID}>
-                                {a.FName} {a.LName}
+                                {a["First Name"]} {a["Last Name"]}
                             </option>
                         ))}
                     </select>
@@ -132,7 +140,7 @@ const CreateResultForm = ({backendURL, refreshData}) => {
                         name="raceRank"
                         id="raceRank"
                         min="1"
-                        value={formData.time}
+                        value={formData.raceRank} // changed from time 
                         onChange={handleChange}
                         required
                     />

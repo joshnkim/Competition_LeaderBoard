@@ -1,14 +1,16 @@
 DROP PROCEDURE IF EXISTS sp_resetDB;
 
+
 CREATE PROCEDURE sp_resetDB()
 BEGIN 
     SET FOREIGN_KEY_CHECKS=0;
-    SET AUTOCOMMIT = 0;
 
     DROP TABLE IF EXISTS Results;
     DROP TABLE IF EXISTS Races;
     DROP TABLE IF EXISTS Events;
     DROP TABLE IF EXISTS Athletes;
+
+    SET FOREIGN_KEY_CHECKS = 1; 
 
     CREATE TABLE Athletes (
         AthleteID INT AUTO_INCREMENT, 
@@ -34,7 +36,7 @@ BEGIN
         RaceID INT AUTO_INCREMENT,
         EventID INT NOT NULL,
         Discipline VARCHAR(55) NOT NULL, 
-        Distance INT NOT NULL, 
+        Distance DECIMAL(4,2) NOT NULL, 
         PRIMARY KEY (RaceID),
         FOREIGN KEY (EventID) REFERENCES Events(EventID) ON DELETE CASCADE
     );
@@ -76,6 +78,8 @@ BEGIN
         (5000, 3, '00:26:30', 1),
         (5002, 3, '00:44:00', 5);
 
+    COMMIT;
+
 END;
 
 
@@ -83,11 +87,9 @@ END;
 
 
 
-
-
 -- CRUD FUNCTIONALITIES ------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------------------
+-- --------------------------------------------------------------------------------------------------------------
+-- --------------------------------------------------------------------------------------------------------------
 
 
 -- CREATE AN ATHLETE 
@@ -110,5 +112,66 @@ BEGIN
 END;
 
 
+
+
+
+-- CREATE AN EVENT 
+DROP PROCEDURE IF EXISTS sp_createEvent;
+
+CREATE PROCEDURE sp_createEvent(
+    IN dateInput DATETIME,
+    IN locationInput VARCHAR(55),
+    IN typeInput VARCHAR(55)
+)
+
+BEGIN 
+
+    INSERT INTO Events (Date, Location, Type)                               
+    VALUES
+    (dateInput, locationInput, typeInput);
+
+END;
+
+
+
+
+
+
+-- CREATE A RACE 
+DROP PROCEDURE IF EXISTS sp_createRace; 
+
+CREATE PROCEDURE sp_createRace(
+    IN eventIDInput INT,
+    IN disciplineInput VARCHAR(55),
+    IN distanceInput DECIMAL(4,2)
+)
+
+BEGIN 
+
+    INSERT INTO Races (EventID, Discipline, Distance)
+    VALUES 
+    (eventIDInput, disciplineInput, distanceInput);
+
+END;
+
+
+
+-- CREATE A RESULT
+DROP PROCEDURE IF EXISTS sp_createResult;
+
+CREATE PROCEDURE sp_createResult(
+    IN raceIDInput INT,
+    IN athleteIDInput INT, 
+    IN timeInput TIME,
+    IN raceRankInput INT
+)
+
+BEGIN 
+
+    INSERT INTO Results (RaceID, AthleteID, Time, RaceRank)
+    VALUES
+    (raceIDInput, athleteIDInput, timeInput, raceRankInput);
+
+END; 
 
 

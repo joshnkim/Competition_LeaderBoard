@@ -1,0 +1,8 @@
+Work after step 4
+
+1. Added all POST routes
+2. Fixed the SP_DDL file - had syntax errors causing it to fail to load. Removed delimiters, removed comment syntax error. 
+3. Edited the manage results page - had a mirroring issue due to raceRank type = time 
+4. Edited the manage results page - athletes were not appearing in drop down menu, because it was being routed to ex: athlete.FName instead of a["First Name"]
+5. Edited the manage results page, specifically the server route for get results to order by the athlete Id, then the rank per each id. 
+

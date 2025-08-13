@@ -5,7 +5,7 @@
 // Express
 const express = require('express');  // We are using the express library for the web server
 const app = express();               // We need to instantiate an express object to interact with the server in our code
-const PORT = 2227;     // Set a port number
+const PORT = 2228;     // Set a port number
 const path = require('path');
 const fs = require('fs');
 
@@ -150,7 +150,7 @@ app.get('/events/:eventId/races', async (req, res) => {
         FROM Results
         LEFT JOIN Athletes on Results.AthleteID = Athletes.AthleteID
         LEFT JOIN Races on Results.RaceID = Races.RaceID
-        ORDER BY name; 
+        ORDER BY Athletes.AthleteID, RaceRank;
         `;
       const [results] = await db.query(query);
       res.status(200).json({ results });
@@ -207,31 +207,6 @@ app.get('/events/:eventId/races', async (req, res) => {
 
 
 
-//POST: event
-
-//POST: race 
-
-//POST: result 
-
-
-
-
-
-
-
-
-
-
-
-
-//UPDATE Athlete: using PL?
-//UPDATE Result: using PL
-
-//DELETE Event: using PL 
-// DELETE race: using PL
-// DELETE athlete using pl
-// DELETE result using pl 
-
 
 /******************************************************* RESET ROUTE ************************************************************/
 
@@ -262,11 +237,70 @@ app.post('/reset', async (req, res) => {
     res.status(500).send("Failed to reset database.");
   }
 });
+/*******************************************************************************************************************************/
+
+
+
+
+
+
+
+
+
+
+
+/******************************************************* POST ROUTES ***********************************************************/
+//POST: event 
+app.post('/events', async (req, res) => {
+  try {
+    const { date, location, type } = req.body;
+
+    // Basic validation
+    if (!date || !location || !type) {
+      return res.status(400).json({ message: 'Missing required fields: date, location, or type.' });
+    }
+
+    // Call the stored procedure
+    const sql = 'CALL sp_createEvent(?, ?, ?)';
+    await db.query(sql, [date, location, type]);
+
+    res.status(201).json({ message: 'Event created successfully.' });
+  } catch (err) {
+    console.error('Error creating event:', err);
+    res.status(500).json({ message: 'Internal server error.' });
+  }
+}); 
+
+
+
+
+//POST: race
+app.post('/races', async (req, res) => {
+  try {
+    const { eventID, discipline, distance } = req.body; 
+
+    // Validation
+    if (!eventID || !discipline || !distance) {
+      return res.status(400).json({ message: 'Missing required fields: eventID, discipline, or distance.'})
+    }
+
+    // Call the SP
+    const sql = 'CALL sp_createRace(?, ?, ?)';
+    await db.query(sql, [eventID, discipline, distance]);
+
+    res.status(201).json({ message: 'Race created successfully.'});
+
+  } catch (err) {
+    console.error('Error creating race:', err);
+    res.status(500).json({message: 'Internal server error.'});
+  }
+});
+
+
 
 
 
 //POST: athlete 
-
 app.post('/athletes', async (req, res) => {
   const { fname, lname, age, gender, country } = req.body;
 
@@ -290,8 +324,41 @@ app.post('/athletes', async (req, res) => {
 
 
 
+//POST: result
+app.post('/results', async (req, res) => {
+  try {
+    const { raceID, athleteID, time, raceRank } = req.body; 
 
-// For the rest of the CUD routes, make sure you ad them into the SP_DDL file, and then import the updated file into phpmyadmin
+    // Validation
+    if (!raceID|| !athleteID || !time || !raceRank) {
+      return res.status(400).json({ message: 'Missing required fields: raceID, athleteID, time, or race rank.'})
+    }
+
+    // Call the SP
+    const sql = 'CALL sp_createResult(?, ?, ?, ?)';
+    await db.query(sql, [raceID, athleteID, time, raceRank]);
+
+    res.status(201).json({ message: 'Result created successfully.'});
+
+  } catch (err) {
+    console.error('Error creating race:', err);
+    res.status(500).json({message: 'Internal server error.'});
+  }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

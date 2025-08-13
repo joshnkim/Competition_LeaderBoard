@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const CreateRaceForm = ({backendURL, refreshData}) => {
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
-        date: '',
         discipline: '',
         distance: '',
         eventID: ''
@@ -35,18 +36,27 @@ const CreateRaceForm = ({backendURL, refreshData}) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+         {/* Added this here because eventID and distance involve numbers, also, formdata should not have race*/}
+        const raceData = {          
+            eventID: parseInt(formData.eventID),
+            discipline: formData.discipline,
+            distance: parseFloat(formData.distance)
+        }
+
         try {
             const response = await fetch(`${backendURL}/races`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(formData)
+                body: JSON.stringify(raceData)
             });
 
             if (response.ok) {
-                setFormData({Date: '', Discipline: '', Distance: ''});
+                setFormData({ discipline: '', distance: '', eventId: ''});
+                window.alert(`Race ${discipline} ${distance} for event ${eventID} was created successfully.`)
                 refreshData();
+                navigate('/')
 
             } else {
                 console.error('Failed to create race');
@@ -78,7 +88,10 @@ const CreateRaceForm = ({backendURL, refreshData}) => {
                 </select>
             </div>
 
-            <div className='formRow'>
+            {/* our races table does not have a date field*/}
+            
+
+            {/* <div className='formRow'>
                 <label htmlFor="Date" className='text'>Date:</label>
                 <input className='cuFormInput'
                     type="datetime-local"
@@ -88,7 +101,7 @@ const CreateRaceForm = ({backendURL, refreshData}) => {
                     onChange={handleChange}
                     required
                 />
-            </div>
+            </div> */} 
 
             <div className='formRow'>
                 <label htmlFor="Discipline" className='text'>Discipline:</label>

@@ -1,6 +1,9 @@
 import {useState, useEffect} from 'react'; 
+import { useNavigate } from 'react-router-dom';
 
 const CreateEventForm = ({ backendURL, refreshData }) => {
+   
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         date: '',
         location: '', 
@@ -30,7 +33,9 @@ const CreateEventForm = ({ backendURL, refreshData }) => {
 
             if (response.ok) {
                 setFormData({ date: '', location: '', type: ''});
+                window.alert(`Event '${formData.type} in ${formData.location} on ${formData.date}' was created successfully.`)
                 refreshData();
+                navigate('/')
 
             } else {
                 console.error('Failed to create event');
