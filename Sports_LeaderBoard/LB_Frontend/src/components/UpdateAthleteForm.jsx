@@ -36,6 +36,7 @@ const UpdateAthleteForm = ({ athletes, backendURL, refreshData }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const athlete = athletes.find(athlete => athlete.AthleteID === parseInt(selectedID)) // use this to get the name of athlete
         try {
             const response = await fetch(`${backendURL}/athletes/${selectedID}`, {
                 method: 'PUT',
@@ -68,7 +69,7 @@ const UpdateAthleteForm = ({ athletes, backendURL, refreshData }) => {
                         <option value="">-- Choose Athlete --</option>
                         {athletes.map((a) => (
                             <option key={a.AthleteID} value={a.AthleteID}>
-                                {a.FName} {a.LName}
+                                {a["First Name"]} {a["Last Name"]}
                             </option>
                         ))}
                     </select>

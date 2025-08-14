@@ -32,7 +32,7 @@ function ManageAthletesPage({backendURL}) {
         try{
             const response = await fetch(`${backendURL}/athletes`);
             const data = await response.json();
-            setAthletes(data.athletes || data);  // Adjust depending on your backend response shape
+            setAthletes(data.athletes);  // Adjust depending on your backend response shape
     }   catch (error) {
             console.error("Error fetching athletes:", error);
     }

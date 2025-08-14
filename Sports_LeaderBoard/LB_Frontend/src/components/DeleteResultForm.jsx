@@ -1,7 +1,8 @@
 import {useState} from 'react';
+import { useNavigate } from "react-router-dom";
 
-const DeleteResultForm = ({ results = [], backendURL, refreshData }) => {
-
+const DeleteResultForm = ({ athletes, results = [], backendURL, refreshData }) => {
+    const navigate = useNavigate();
     const [selectedID, setSelectedID] = useState('');
 
     const handleSelect = (e) => {
@@ -10,15 +11,20 @@ const DeleteResultForm = ({ results = [], backendURL, refreshData }) => {
 
     const handleDelete = async () => {
         const confirm = window.confirm("Are you sure you want to delete this result?")
+        const result = results.find((r) => r.ResultID === parseInt(selectedID)) // added this to allow for athlete name to show up in message dialogue
+        const athlete = athletes.find((a) => a.AthleteID === result.AthleteID);  // added this to allow for athlete name to show up in message dialogue
         if (!confirm) return;
-
+        
         try {
             const response = await fetch(`${backendURL}/results/${selectedID}`, {
                 method: 'DELETE'
             });
 
             if (response.ok) {
+                setSelectedID('')
+                window.alert(`Result For athlete ${athlete["First Name"]} ${athlete["Last Name"]} was delete successfully.`)
                 refreshData();
+                navigate('/')
 
             } else {
                 console.error('Failed to delete result');
@@ -44,7 +50,7 @@ const DeleteResultForm = ({ results = [], backendURL, refreshData }) => {
                         <option value="">-- Choose Result --</option>
                         {results.map((r) => (
                             <option key={r.ResultID} value={r.ResultID}>
-                                {`[${r.name}] - ${r.Race} - ${r.Time} - ${r.rank}`}
+                                {`[${r.Name}] - ${r.Race} - ${r.Time} - ${r.Rank}`}
                             </option>
                         ))}
                     </select>

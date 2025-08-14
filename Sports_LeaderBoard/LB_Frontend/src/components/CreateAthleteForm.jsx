@@ -15,7 +15,7 @@ const CreateAthleteForm = ({ backendURL, refreshData }) => {
 
     const handleChange = (e) => {
         setFormData(prev => ({
-            ...prev,
+            ...prev, 
             [e.target.name]: e.target.value
         }));
     };

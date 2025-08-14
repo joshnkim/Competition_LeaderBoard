@@ -1,4 +1,4 @@
-Work after step 4
+Work after step 4 8/13/2025
 
 1. Added all POST routes
 2. Fixed the SP_DDL file - had syntax errors causing it to fail to load. Removed delimiters, removed comment syntax error. 
@@ -6,3 +6,21 @@ Work after step 4
 4. Edited the manage results page - athletes were not appearing in drop down menu, because it was being routed to ex: athlete.FName instead of a["First Name"]
 5. Edited the manage results page, specifically the server route for get results to order by the athlete Id, then the rank per each id. 
 
+6. Added a DELETE SP and Route for events on server.js - works on postman, noticed a problem with the actual delete page. wasnt working on UI
+7. Added /:eventID to the server route for delete event. 
+8. Changed from req.body to req.params in server.js for delete route.
+9. Added navigate to home and message of deletion for delete event form. 
+
+
+10. Added a DELETE SP and ROUTE for races on server.js - works. 
+11. Added navigate to home and message of deletion for delete race form. 
+
+
+12. Changed LoadSP to an async function, or else user would have to manually trigger the post route for loadSP. Now it will load the sql DDL and SPs upon starting server.js
+13. DELETE athletes works. 
+14. Changed the UI a bit for athlete message window. 
+
+
+15. Completed delete result form. 
+
+16. ALL delete routes added. 

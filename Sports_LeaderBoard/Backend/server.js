@@ -16,6 +16,7 @@ app.use(express.json());
 // Database 
 const db = require('./db-connector');
 
+
 // GET
 app.get('/athletes', async (req, res) => {
     try {
@@ -211,7 +212,7 @@ app.get('/events/:eventId/races', async (req, res) => {
 /******************************************************* RESET ROUTE ************************************************************/
 
 //load file
-app.post('/loadSP', async (req, res) => {
+async function loadSP() {
   try {
     const DDLpath = path.join(__dirname, 'SP_DDL.sql');
     const readDDL = fs.readFileSync(DDLpath, 'utf8');
@@ -219,14 +220,10 @@ app.post('/loadSP', async (req, res) => {
     await db.query(readDDL);
     console.log("DDL script loaded successfully.");
 
-    res.status(200).json({
-      message: "SPs defined."
-    });
   } catch (err) {
     console.error('Error loading procedures:', err);
-    res.status(500).send('Error loading stored procedures.');
   }
-});
+};
 
 //reset functionality
 app.post('/reset', async (req, res) => {
@@ -341,10 +338,11 @@ app.post('/results', async (req, res) => {
     res.status(201).json({ message: 'Result created successfully.'});
 
   } catch (err) {
-    console.error('Error creating race:', err);
+    console.error('Error creating result:', err);
     res.status(500).json({message: 'Internal server error.'});
   }
 });
+/*******************************************************************************************************************************/
 
 
 
@@ -354,6 +352,113 @@ app.post('/results', async (req, res) => {
 
 
 
+/****************************************************** UPDATE ROUTES **********************************************************/
+//UPDATE: athlete
+app.patch('/athletes/:athleteID', async (req, res) => {
+  const {fname, lname, age, gender, country} = req.body; 
+
+  const athleteID = req.params.athleteID;
+  try {
+    await db.query('CALL sp_updateAthlete(?, ?, ?, ?, ?, ?)', [
+      athleteID,
+      fname,
+      lname,
+      age,
+      gender,
+      country
+    ]);
+
+    res.status(200).json({ message: 'Athlete updated successfully!' });
+
+  } catch (error) {
+    console.error("Error calling sp_updateAthlete:", error); // Helpful for debugging
+    res.status(500).send("An error occurred while updating the athlete.");
+  }
+})
+
+
+/*******************************************************************************************************************************/
+
+
+
+
+
+
+
+
+
+/****************************************************** DELETE ROUTES **********************************************************/
+
+//DELETE: event 
+app.delete('/events/:eventID', async (req, res) => {
+  try {
+    const { eventID } = req.params; // not req.body
+
+    // Call the stored procedure
+    const sql = 'CALL sp_deleteEvent(?)';
+    await db.query(sql, [eventID]);
+
+    res.status(201).json({ message: 'Event deleted successfully.' });
+  } catch (err) {
+    console.error('Error deleting event:', err);
+    res.status(500).json({ message: 'Internal server error.' });
+  }
+}); 
+
+
+//DELETE: race 
+app.delete('/races/:raceID', async (req, res) => {
+  try {
+    const { raceID } = req.params; 
+
+    // Call the stored procedure
+    const sql = 'CALL sp_deleteRace(?)';
+    await db.query(sql, [raceID]);
+
+    res.status(201).json({ message: 'Race deleted successfully.' });
+  } catch (err) {
+    console.error('Error deleting race:', err);
+    res.status(500).json({ message: 'Internal server error.' });
+  }
+}); 
+
+
+
+
+//DELETE: race 
+app.delete('/athletes/:athleteID', async (req, res) => {
+  try {
+    const { athleteID } = req.params; 
+
+    // Call the stored procedure
+    const sql = 'CALL sp_deleteAthlete(?)';
+    await db.query(sql, [athleteID]);
+
+    res.status(201).json({ message: 'Athlete deleted successfully.' });
+  } catch (err) {
+    console.error('Error deleting Athlete:', err);
+    res.status(500).json({ message: 'Internal server error.' });
+  }
+}); 
+
+
+
+//DELETE: result 
+app.delete('/results/:resultID', async (req, res) => {
+  try {
+    const { resultID } = req.params; 
+
+    // Call the stored procedure
+    const sql = 'CALL sp_deleteResults(?)';
+    await db.query(sql, [resultID]);
+
+    res.status(201).json({ message: 'Result deleted successfully.' });
+  } catch (err) {
+    console.error('Error deleting Result:', err);
+    res.status(500).json({ message: 'Internal server error.' });
+  }
+}); 
+/*******************************************************************************************************************************/
 
 
 
@@ -367,6 +472,8 @@ app.post('/results', async (req, res) => {
     LISTENER
 */
 
-app.listen(PORT, function(){            // This is the basic syntax for what is called the 'listener' which receives incoming requests on the specified PORT.
+app.listen(PORT, async function(){            // This is the basic syntax for what is called the 'listener' which receives incoming requests on the specified PORT.
     console.log('Express started on http://classwork.engr.oregonstate.edu:' + PORT + '; press Ctrl-C to terminate.')
+
+    await loadSP();
 });

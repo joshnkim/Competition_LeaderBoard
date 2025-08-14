@@ -1,6 +1,9 @@
 import {useState} from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const DeleteRaceForm = ({ races = [], backendURL, refreshData }) => {
+
+    const navigate = useNavigate();
 
     const [selectedID, setSelectedID] = useState('');
 
@@ -18,7 +21,10 @@ const DeleteRaceForm = ({ races = [], backendURL, refreshData }) => {
             });
 
             if (response.ok) {
+                setSelectedID('');
+                window.alert(`Race ${selectedID} was deleted successfully.`)
                 refreshData();
+                navigate('/')
 
             } else {
                 console.error('Failed to delete race');

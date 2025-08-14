@@ -88,10 +88,11 @@ END;
 
 
 -- CRUD FUNCTIONALITIES ------------------------------------------------------------------------------------------
--- --------------------------------------------------------------------------------------------------------------
--- --------------------------------------------------------------------------------------------------------------
+-- ---------------------------------------------------------------------------------------------------------------
+-- ---------------------------------------------------------------------------------------------------------------
 
 
+-- ---------------------------------------------------------------------------------------------------------------
 -- CREATE AN ATHLETE 
 DROP PROCEDURE IF EXISTS sp_createAthlete;
 
@@ -112,9 +113,6 @@ BEGIN
 END;
 
 
-
-
-
 -- CREATE AN EVENT 
 DROP PROCEDURE IF EXISTS sp_createEvent;
 
@@ -131,10 +129,6 @@ BEGIN
     (dateInput, locationInput, typeInput);
 
 END;
-
-
-
-
 
 
 -- CREATE A RACE 
@@ -155,7 +149,6 @@ BEGIN
 END;
 
 
-
 -- CREATE A RESULT
 DROP PROCEDURE IF EXISTS sp_createResult;
 
@@ -173,5 +166,107 @@ BEGIN
     (raceIDInput, athleteIDInput, timeInput, raceRankInput);
 
 END; 
+-- ---------------------------------------------------------------------------------------------------------------
 
 
+
+
+
+
+
+
+
+
+
+
+-- ---------------------------------------------------------------------------------------------------------------
+-- UPDATE AN ATHLETE
+DROP PROCEDURE IF EXISTS sp_updateAthlete;
+
+CREATE PROCEDURE sp_updateAthlete(
+    IN athleteIDInput INT,
+    IN fnameInput VARCHAR(55),
+    IN lnameInput VARCHAR(55),
+    IN ageInput INT,
+    IN genderInput VARCHAR(10),
+    IN countryInput VARCHAR(55)
+)
+
+BEGIN 
+
+    UPDATE Athletes 
+    SET 
+        FName = fnameInput, 
+        LName = lnameInput, 
+        Age = ageInput,
+        Gender = genderInput, 
+        Country = countryInput
+    WHERE AthleteID = athleteIDinput;
+
+END;
+
+
+
+
+
+
+
+
+
+
+-- ---------------------------------------------------------------------------------------------------------------
+-- DELETE AN EVENT
+DROP PROCEDURE IF EXISTS sp_deleteEvent;
+
+CREATE PROCEDURE sp_deleteEvent(
+    IN eventIDInput INT
+)
+
+BEGIN 
+
+    DELETE FROM Events WHERE EventID = eventIDInput;
+
+END;
+
+
+-- DELETE A RACE
+DROP PROCEDURE IF EXISTS sp_deleteRace;
+
+CREATE PROCEDURE sp_deleteRace(
+    IN raceIDInput INT
+)
+
+BEGIN 
+
+    DELETE FROM Races WHERE RaceID = raceIDInput;
+
+END;
+
+
+-- DELETE AN ATHLETE 
+DROP PROCEDURE IF EXISTS sp_deleteAthlete;
+
+CREATE PROCEDURE sp_deleteAthlete(
+    IN athleteIDInput INT
+)
+
+BEGIN 
+
+    DELETE FROM Athletes WHERE AthleteID = athleteIDInput;
+
+END; 
+
+
+-- DELETE A RESULT
+DROP PROCEDURE IF EXISTS sp_deleteResults;
+
+CREATE PROCEDURE sp_deleteResults(
+    IN resultIDInput INT
+)
+
+BEGIN 
+
+    DELETE FROM Results WHERE ResultID = resultIDInput;
+
+END; 
+-- ---------------------------------------------------------------------------------------------------------------

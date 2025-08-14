@@ -6,6 +6,7 @@ import Footer from '../components/Footer';
 
 function ManageResultsPage({ backendURL }) {
     const [results, setResults] = useState([]);
+    const [athletes, setAthletes] = useState([]);
 
     const getResults = async () => {
         try {
@@ -18,8 +19,18 @@ function ManageResultsPage({ backendURL }) {
         }
     };
 
+    const getAthletes = async () => {
+        try {
+            const response = await fetch(`${backendURL}/athletes`);
+            const data = await response.json();
+            setAthletes(data.athletes || data);
+        } catch (error) {
+            console.error("Error fetching athletes:", error);
+        }
+    };
+
     useEffect(() => {
-        getResults();
+        getResults(), getAthletes();
     }, []);
 
     return (
@@ -35,7 +46,7 @@ function ManageResultsPage({ backendURL }) {
                         <UpdateResultForm results = {results} backendURL={backendURL} refreshData={getResults} />
                     </div>
                     <div className='deleteForm'>
-                        <DeleteResultForm results = {results} backendURL={backendURL} refreshData={getResults} />
+                        <DeleteResultForm athletes = {athletes} results = {results} backendURL={backendURL} refreshData={getResults} />
                     </div>
 
                 <div>

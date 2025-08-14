@@ -1,6 +1,10 @@
 import {useState} from 'react'; 
+import { useNavigate } from 'react-router-dom';
+
 
 const DeleteEventForm = ({events, backendURL, refreshData}) => {
+    const navigate = useNavigate();
+
     const [selectedID, setSelectedID] = useState(''); 
     const [formData, setFormData] = useState({
         date: '', 
@@ -40,7 +44,9 @@ const DeleteEventForm = ({events, backendURL, refreshData}) => {
 
             if (response.ok) {
                 setSelectedID('');
+                window.alert(`Event ${selectedID} was deleted successfully.`)
                 refreshData();
+                navigate('/')
 
             } else {
                 console.error('Failed to delete event');
