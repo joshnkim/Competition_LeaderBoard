@@ -1,7 +1,9 @@
 import { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 
 
 const UpdateAthleteForm = ({ athletes, backendURL, refreshData }) => {
+    const navigate = useNavigate();
     const [selectedID, setSelectedID] = useState('');
     const [formData, setFormData] = useState({
         fname: '',
@@ -18,11 +20,11 @@ const UpdateAthleteForm = ({ athletes, backendURL, refreshData }) => {
         const selectedAthlete = athletes.find(a => a.AthleteID.toString() === athleteID);
         if (selectedAthlete) {
             setFormData({
-                fname: selectedAthlete.fname || '',
-                lname: selectedAthlete.lname || '',
-                age: selectedAthlete.age || '',
-                gender: selectedAthlete.gender || '',
-                country: selectedAthlete.country || ''
+                fname: selectedAthlete["First Name"] || '',
+                lname: selectedAthlete["Last Name"] || '',
+                age: selectedAthlete.Age || '',
+                gender: selectedAthlete.Gender || '',
+                country: selectedAthlete.Country || ''
             });
         }
     };
@@ -39,17 +41,19 @@ const UpdateAthleteForm = ({ athletes, backendURL, refreshData }) => {
         const athlete = athletes.find(athlete => athlete.AthleteID === parseInt(selectedID)) // use this to get the name of athlete
         try {
             const response = await fetch(`${backendURL}/athletes/${selectedID}`, {
-                method: 'PUT',
+                method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(formData)
+                body: JSON.stringify({ ...formData, age: Number(formData.age) })
             });
 
             if (response.ok) {
                 setSelectedID('');
                 setFormData({ fname: '', lname: '', age: '', gender: '', country: '' });
+                window.alert(`Athlete ${athlete["First Name"]} ${athlete["Last Name"]} was updated successfully.`)
                 refreshData();
+                navigate('/')
             } else {
                 console.error('Failed to update athlete');
             }

@@ -22,7 +22,7 @@ const DeleteAthleteForm = ({ athletes, backendURL, refreshData }) => {
 
             if (response.ok) {
                 setSelectedID('')
-                window.alert(`Athlete ${athlete["First Name"]} ${athlete["Last Name"]} was delete successfully.`)
+                window.alert(`Athlete ${athlete["First Name"]} ${athlete["Last Name"]} was deleted successfully.`)
                 refreshData();
                 navigate('/')
             } else {
